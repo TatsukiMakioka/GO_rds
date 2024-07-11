@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
-	"my-todo-app/models"
-	"my-todo-app/services"
+	"./models"
+	"./services"
 
 	"github.com/gin-gonic/gin"
 )
