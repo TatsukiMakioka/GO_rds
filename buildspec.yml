@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      golang: 1.14
+    commands:
+      - echo "Installing dependencies..."
+      - go get ./...
+  build:
+    commands:
+      - echo "Building the Go app..."
+      - cd cmd/main
+      - GOOS=linux GOARCH=amd64 go build -o main main.go
+  post_build:
+    commands:
+      - echo "Zipping the application..."
+      - zip my-todo-app.zip main
+      - echo "Build completed on `date`"
+
+artifacts:
+  files:
+    - cmd/main/my-todo-app.zip
+
+cache:
+  paths:
+    - /root/.cache/go-build
