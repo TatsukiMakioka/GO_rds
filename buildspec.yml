@@ -1,12 +1,15 @@
 version: 0.2
  
+env:
+  variables:
+    GO111MODULE: "on"
+ 
 phases:
   install:
     runtime-versions:
       golang: 1.14
     commands:
       - echo "Installing dependencies..."
-      - cd cmd/main
       - go get ./...
   build:
     commands:
@@ -16,11 +19,11 @@ phases:
     commands:
       - echo "Zipping the application..."
       - zip my-todo-app.zip main
-      - echo "Build completed on `date`"
+      - echo "Build completed on $(date)"
  
 artifacts:
   files:
-    - cmd/main/my-todo-app.zip
+    - my-todo-app.zip
  
 cache:
   paths:
