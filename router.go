@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
  
-	"./controllers"
-	"./repositories"
-	"./services"
+	"my-todo-app/controllers"
+	"my-todo-app/repositories"
+	"my-todo-app/services"
 )
  
 // SetupRouter sets up the Gin router with routes and their handlers.
