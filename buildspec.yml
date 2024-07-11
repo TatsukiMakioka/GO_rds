@@ -7,7 +7,7 @@ env:
 phases:
   install:
     runtime-versions:
-      golang: 1.x # 自動で最新バージョンを使用します
+      golang: 1.18
     commands:
       - echo "Installing dependencies..."
       - go mod tidy
