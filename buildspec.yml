@@ -1,13 +1,13 @@
 version: 0.2
- 
+
 env:
   variables:
     GO111MODULE: "on"
- 
+
 phases:
   install:
     runtime-versions:
-      golang: 1.14
+      golang: 1.x # 自動で最新バージョンを使用します
     commands:
       - echo "Installing dependencies..."
       - go mod tidy
@@ -20,11 +20,11 @@ phases:
       - echo "Zipping the application..."
       - zip my-todo-app.zip main
       - echo "Build completed on $(date)"
- 
+
 artifacts:
   files:
     - my-todo-app.zip
- 
+
 cache:
   paths:
     - /root/.cache/go-build
