@@ -1,4 +1,4 @@
-[16:36] PS3 牧岡 立樹/Makioka, Tatsuki (NTT DATA)
+
 package main
  
 import (
