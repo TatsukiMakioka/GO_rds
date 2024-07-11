@@ -10,7 +10,7 @@ phases:
       golang: 1.14
     commands:
       - echo "Installing dependencies..."
-      - go get ./...
+      - go mod tidy
   build:
     commands:
       - echo "Building the Go app..."
