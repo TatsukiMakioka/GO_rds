@@ -1,8 +1,8 @@
 package services
 
 import (
-	"./models"
-	"./repositories"
+	"my-todo-app/models"
+	"my-todo-app/repositories"
 	"time"
 )
 
