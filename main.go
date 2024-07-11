@@ -9,9 +9,9 @@ import (
 
 	"os"
  
-	"./config"
+	"my-todo-app/config"
 
-	"./routers"
+	"my-todo-app/routers"
  
 	"github.com/aws/aws-lambda-go/events"
 
