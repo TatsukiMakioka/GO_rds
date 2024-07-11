@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"my-todo-app/models"
+	"./models"
 	"time"
 
 	"github.com/jinzhu/gorm"
