@@ -1,4 +1,4 @@
-package utils
+package main
 
 import (
 	"errors"
@@ -23,7 +23,7 @@ func SuccessResponse(data interface{}) map[string]interface{} {
 }
 
 // ErrorResponse formats error responses.
-func ErrorResponse(err error) map[string]interface{}{
+func ErrorResponse(err error) map[string]interface{} {
 	return map[string]interface{}{
 		"status":  "error",
 		"message": err.Error(),
