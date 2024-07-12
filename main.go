@@ -2,7 +2,6 @@ package main
 
 import (
     "context"
-    "fmt"
     "my-todo-app/config"
     "my-todo-app/routers"
     "net/http"
