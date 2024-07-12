@@ -1,9 +1,8 @@
-package repositories
+package main
 
 import (
 	"my-todo-app/models"
 	"time"
-
 	"github.com/jinzhu/gorm"
 )
 
