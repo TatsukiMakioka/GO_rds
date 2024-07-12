@@ -4,7 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite" // SQLite dialect
 
-	"main"
+	"my-todo-app/models"
 )
 
 // SetupDatabase sets up the database connection and initializes the schema
