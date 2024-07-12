@@ -1,9 +1,8 @@
-package routers
+package main
 
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
-
 	"my-todo-app/controllers"
 	"my-todo-app/repositories"
 	"my-todo-app/services"
