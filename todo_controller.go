@@ -1,12 +1,10 @@
-package controllers
+package main
 
 import (
 	"net/http"
 	"time"
-
 	"my-todo-app/models"
 	"my-todo-app/services"
-
 	"github.com/gin-gonic/gin"
 )
 
