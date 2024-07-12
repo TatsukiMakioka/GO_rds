@@ -4,10 +4,8 @@ import (
 	"context"
 	"net/http"
 	"os"
-
 	"my-todo-app/config"
 	"my-todo-app/routers"
-
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/gin-gonic/gin"
@@ -30,7 +28,6 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 			Body:       err.Error(),
 		}, nil
 	}
-
 	router.ServeHTTP(w, r)
 	return events.APIGatewayProxyResponse{
 		StatusCode: w.status,
