@@ -7,6 +7,7 @@ import (
 	"my-todo-app/routers"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
@@ -23,7 +24,9 @@ func init() {
 // AWS Lambda用のハンドラー
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	w := newResponseWriter()
-	r, err := http.NewRequest(req.HTTPMethod, req.Path, bytes.NewReader([]byte(req.Body)))
+	bodyReader := strings.NewReader(req.Body)
+
+	r, err := http.NewRequest(req.HTTPMethod, req.Path, bodyReader)
 	if err != nil {
 		return events.APIGatewayProxyResponse{
 			StatusCode: http.StatusInternalServerError,
@@ -47,8 +50,8 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 
 	return events.APIGatewayProxyResponse{
 		StatusCode: w.status,
-		Body:       w.Body(),
-		Headers:    w.header,
+		Body:       w.body.String(),
+		Headers:    w.Headers(),
 	}, nil
 }
 
@@ -87,6 +90,10 @@ func (w *responseWriter) Write(body []byte) (int, error) {
 	return w.body.Write(body)
 }
 
-func (w *responseWriter) Body() string {
-	return w.body.String()
+func (w *responseWriter) Headers() map[string]string {
+	headers := make(map[string]string)
+	for key, values := range w.header {
+		headers[key] = values[0]
+	}
+	return headers
 }
