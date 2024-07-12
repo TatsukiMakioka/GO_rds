@@ -1,10 +1,9 @@
-package services
+package main
 
 import (
-	"time"
-
 	"my-todo-app/models"
 	"my-todo-app/repositories"
+	"time"
 )
 
 // ToDoService provides ToDo-related services.
