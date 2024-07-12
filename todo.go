@@ -1,8 +1,7 @@
-package models
+package main
 
 import (
 	"time"
-
 	"github.com/google/uuid"
 )
 
