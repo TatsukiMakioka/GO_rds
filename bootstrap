@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Enable strict mode
+set -euo pipefail
+
+# Debug log to indicate start of the bootstrap script
+echo "Starting the bootstrap script"
+
+# Path to the compiled Go binary
+exec /var/task/main
