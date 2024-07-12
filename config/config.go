@@ -2,6 +2,7 @@ package config
 
 import (
 	"my-todo-app/models"
+	"os"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite" // SQLite dialect
@@ -9,7 +10,12 @@ import (
 
 // SetupDatabase sets up the database connection and initializes the schema
 func SetupDatabase() *gorm.DB {
-	db, err := gorm.Open("sqlite3", "./test.db")
+	dbPath := os.Getenv("DATABASE_PATH")
+	if dbPath == "" {
+		dbPath = "./test.db"
+	}
+
+	db, err := gorm.Open("sqlite3", dbPath)
 	if err != nil {
 		panic("Failed to connect to the database")
 	}
