@@ -1,30 +1,18 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
-Description: my-todo-app
-
 Resources:
   MyTodoAppFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: main
-      Runtime: go1.x
+      Handler: bootstrap
+      Runtime: provided.al2
       CodeUri: ./cmd/main
       MemorySize: 128
       Timeout: 10
       Environment:
         Variables:
-          TABLE_NAME: "todos"
+          DATABASE_PATH: "/tmp/test.db"
       Events:
         Api:
           Type: Api
           Properties:
             Path: /{proxy+}
             Method: ANY
-
-Outputs:
-  MyTodoApp:
-    Description: "My Todo App Lambda Function ARN"
-    Value: !GetAtt MyTodoAppFunction.Arn
-  MyTodoAppApi:
-    Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
