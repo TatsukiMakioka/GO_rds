@@ -17,7 +17,7 @@ phases:
   post_build:
     commands:
       - echo "Zipping the application..."
-      - zip my-todo-app.zip main bootstrap
+      - zip my-todo-app.zip my-todo-app bootstrap template.yaml
       - echo "Build completed on $(date)"
 
 artifacts:
