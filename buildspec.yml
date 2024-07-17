@@ -1,9 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    GO111MODULE: "on"
-
 phases:
   install:
     runtime-versions:
@@ -15,7 +11,8 @@ phases:
     commands:
       - echo "Building the Go app..."
       - GOOS=linux GOARCH=amd64 go build -o main main.go
-      - echo "Giving execute permissions to 'bootstrap'..."
+      - echo "Giving execute permissions to 'main' and 'bootstrap'..."
+      - chmod +x main
       - chmod +x bootstrap
   post_build:
     commands:
