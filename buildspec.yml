@@ -15,7 +15,7 @@ phases:
       - chmod +x main
       - chmod +x bootstrap
   post_build:
-    commands:
+      commands:
       - echo "Zipping the application..."
       - zip my-todo-app.zip main bootstrap template.yaml
       - echo "Build completed on $(date)"
