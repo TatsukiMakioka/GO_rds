@@ -10,12 +10,9 @@ phases:
   build:
     commands:
       - echo "Building the Go app..."
-      #- GOOS=linux GOARCH=amd64 go build -o main main.go
-      - GOOS=linux GOARCH=amd64 go build -o bootstrap main.go
-      #- echo "Giving execute permissions to 'main' and 'bootstrap'..."
-      - echo "Giving execute permissions to 'bootstrap'..."
-
-      #- chmod +x main
+      - GOOS=linux GOARCH=amd64 go build -o main main.go
+      - echo "Giving execute permissions to 'main' and 'bootstrap'..."
+      - chmod +x main
       - chmod +x bootstrap
   post_build:
       commands:
