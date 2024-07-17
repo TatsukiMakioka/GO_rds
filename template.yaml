@@ -4,7 +4,7 @@ Resources:
     Properties:
       Handler: bootstrap
       Runtime: provided.al2
-      CodeUri: ./cmd/main
+      CodeUri: s3://my-go-app-bucket/my-todo-app.zip
       MemorySize: 128
       Timeout: 10
       Environment:
