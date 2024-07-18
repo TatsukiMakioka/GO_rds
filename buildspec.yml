@@ -1,5 +1,4 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
@@ -7,10 +6,12 @@ phases:
     commands:
       - echo "Installing dependencies..."
       - go mod tidy
+      - echo "Installing necessary build tools..."
+      - yum -y install gcc
   build:
     commands:
       - echo "Setting environment variables..."
-      - export GOOS=linux GOARCH=amd64
+      - export GOOS=linux GOARCH=amd64 CGO_ENABLED=1
       - echo "Building the Go app..."
       - go build -o bootstrap main.go
       - echo "Setting executable permissions for 'bootstrap'..."
@@ -20,11 +21,9 @@ phases:
       - echo "Zipping the application..."
       - zip my-todo-app.zip bootstrap test.db
       - echo "Build completed on $(date)"
-
 artifacts:
   files:
     - my-todo-app.zip
-
 cache:
   paths:
     - /root/.cache/go-build
