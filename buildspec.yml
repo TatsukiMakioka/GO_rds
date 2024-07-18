@@ -10,14 +10,13 @@ phases:
   build:
     commands:
       - echo "Building the Go app..."
-      - GOOS=linux GOARCH=amd64 go build -o main main.go
-      - echo "Giving execute permissions to 'main' and 'bootstrap'..."
-      - chmod +x main
+      - GOOS=linux GOARCH=amd64 go build -o bootstrap main.go
+      - echo "Giving execute permissions to 'bootstrap'..."
       - chmod +x bootstrap
   post_build:
       commands:
       - echo "Zipping the application..."
-      - zip my-todo-app.zip main bootstrap template.yaml
+      - zip my-todo-app.zip bootstrap
       - echo "Build completed on $(date)"
 
 artifacts:
