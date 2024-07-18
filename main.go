@@ -3,15 +3,15 @@ package main
 import (
 	"bytes"
 	"context"
-	"my-todo-app/config"
-	"my-todo-app/routers"
+	"fmt"
 	"net/http"
 	"os"
 	"strings"
-
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/gin-gonic/gin"
+	"my-todo-app/config"
+	"my-todo-app/routers"
 )
 
 var router *gin.Engine
@@ -21,7 +21,7 @@ func init() {
 	router = routers.SetupRouter(db)
 }
 
-// AWS Lambda用のハンドラー
+// AWS Lambda handler
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.APIGatewayProxyResponse, error) {
 	w := newResponseWriter()
 	bodyReader := strings.NewReader(req.Body)
@@ -34,12 +34,10 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 		}, nil
 	}
 
-	// Add headers from API Gateway request
 	for key, value := range req.Headers {
 		r.Header.Add(key, value)
 	}
 
-	// Set query parameters
 	q := r.URL.Query()
 	for key, value := range req.QueryStringParameters {
 		q.Add(key, value)
@@ -55,7 +53,6 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	}, nil
 }
 
-// ローカル環境でのエントリーポイント
 func main() {
 	if os.Getenv("AWS_LAMBDA_FUNCTION_NAME") == "" {
 		router.Run(":8080")
@@ -64,7 +61,6 @@ func main() {
 	}
 }
 
-// カスタムのResponseWriterを作成
 type responseWriter struct {
 	header http.Header
 	status int
