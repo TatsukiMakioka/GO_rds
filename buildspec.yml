@@ -2,25 +2,21 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      golang: 1.x
+      docker: 18
     commands:
-      - echo "Installing dependencies..."
-      - go mod tidy
-      - echo "Installing necessary build tools..."
-      - yum -y install gcc
+      - echo "Install docker if required."
   build:
     commands:
-      - echo "Setting environment variables..."
-      - export GOOS=linux GOARCH=amd64 CGO_ENABLED=1
-      - echo "Building the Go app..."
-      - go build -o bootstrap main.go
-      - echo "Setting executable permissions for 'bootstrap'..."
-      - chmod +x bootstrap
+      - echo "Starting the Docker build process"
+      - docker build -t my-todo-app .
+      - docker run --name extract my-todo-app
+      - docker cp extract:/app/bootstrap ./bootstrap
+      - docker cp extract:/app/test.db ./test.db
+      - docker rm extract
   post_build:
     commands:
       - echo "Zipping the application..."
       - zip my-todo-app.zip bootstrap test.db
-      - echo "Build completed on $(date)"
 artifacts:
   files:
     - my-todo-app.zip
