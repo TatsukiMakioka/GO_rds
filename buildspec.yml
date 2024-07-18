@@ -9,9 +9,9 @@ phases:
       - go mod tidy
   build:
     commands:
+      - echo "Setting environment variables..."
+      - export GOOS=linux GOARCH=amd64
       - echo "Building the Go app..."
-      - export GOOS=linux
-      - export GOARCH=amd64
       - go build -o bootstrap main.go
       - echo "Setting executable permissions for 'bootstrap'..."
       - chmod +x bootstrap
