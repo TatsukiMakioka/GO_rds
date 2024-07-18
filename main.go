@@ -25,7 +25,9 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	w := newResponseWriter()
 	bodyReader := strings.NewReader(req.Body)
 
-	r, err := http.NewRequest(req.HTTPMethod, req.Path, bodyReader)
+	requestPath := req.Path // ここでリクエストのパスを適切に取得
+
+	r, err := http.NewRequest(req.HTTPMethod, requestPath, bodyReader)
 	if err != nil {
 		return events.APIGatewayProxyResponse{
 			StatusCode: http.StatusInternalServerError,
