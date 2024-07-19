@@ -6,11 +6,13 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"my-todo-app/config"
+	"my-todo-app/routers"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/gin-gonic/gin"
-	"my-todo-app/config"
-	"my-todo-app/routers"
 )
 
 var router *gin.Engine
@@ -43,7 +45,7 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest) (events.API
 	for key, value := range req.QueryStringParameters {
 		q.Add(key, value)
 	}
-	r.URL.RawQuery = q.Encode()
+	r.URL.RawQuery = q.Encode() // クエリパラメータを正しくエンコード
 
 	router.ServeHTTP(w, r)
 
