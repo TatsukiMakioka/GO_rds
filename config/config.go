@@ -3,9 +3,10 @@ package config
 import (
 	"fmt"
 	"io/ioutil"
+	"my-todo-app/models"
 	"os"
 	"path/filepath"
-	"my-todo-app/models"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite" // SQLite dialect
 )
