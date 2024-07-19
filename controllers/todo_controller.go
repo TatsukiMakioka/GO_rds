@@ -96,9 +96,13 @@ func (ctrl *ToDoController) FinishToDo(c *gin.Context) {
 // SearchToDos handles GET requests to search for ToDo items by keyword.
 func (ctrl *ToDoController) SearchToDos(c *gin.Context) {
 	keyword := c.Query("keyword")
+	if keyword == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Keyword parameter is required"})
+		return
+	}
 	todos, err := ctrl.Service.SearchToDos(keyword)
 	if err != nil {
-		c.Status(http.StatusNotFound)
+		c.JSON(http.StatusNotFound, gin.H{"error": "No records found"})
 		return
 	}
 	c.JSON(http.StatusOK, todos)
