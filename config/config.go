@@ -1,36 +1,43 @@
 package config
 
 import (
-    "fmt"
-    "my-todo-app/models"
-    "os"
+	"fmt"
+	"my-todo-app/models"
 
-    "github.com/jinzhu/gorm"
-    _ "github.com/jinzhu/gorm/dialects/postgres" // PostgreSQL dialect
+	"github.com/jinzhu/gorm"
+	_ "github.com/lib/pq" // PostgreSQL Dialect
 )
 
 var DB *gorm.DB
 
 func SetupDatabase() *gorm.DB {
-    dbHost := os.Getenv("DB_HOST")
-    dbPort := os.Getenv("DB_PORT")
-    dbUser := os.Getenv("DB_USER")
-    dbName := os.Getenv("DB_NAME")
-    dbPassword := os.Getenv("DB_PASSWORD")
+	// PostgreSQL接続情報
+	host := "database-2.cxy8s2oaayga.ap-northeast-1.rds.amazonaws.com"
+	port := 5432
+	user := "postgres"
+	password := "DB14mky10"
+	dbname := "todogodb"
 
-    dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable", dbHost, dbPort, dbUser, dbName, dbPassword)
-    
-    db, err := gorm.Open("postgres", dsn)
-    if err != nil {
-        panic(fmt.Sprintf("Failed to connect to the database: %s", err.Error()))
-    }
-    fmt.Println("Connected to the database successfully")
+	// PostgreSQL接続文字列
+	dsn := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s", host, port, user, dbname, password)
 
-    err = db.AutoMigrate(&models.ToDoData{}).Error
-    if err != nil {
-        panic(fmt.Sprintf("Failed to auto migrate: %s", err.Error()))
-    }
-    fmt.Println("Database migrated successfully")
+	db, err := gorm.Open("postgres", dsn)
+	if err != nil {
+		panic(fmt.Sprintf("Failed to connect to the database: %s", err.Error()))
+	}
+	fmt.Println("Connected to the PostgreSQL database successfully")
 
-    return db
+	// Drop the existing table if it exists and re-migrate
+	err = db.DropTableIfExists(&models.ToDoData{}).Error
+	if err != nil {
+		panic(fmt.Sprintf("Failed to drop table: %s", err.Error()))
+	}
+
+	err = db.AutoMigrate(&models.ToDoData{}).Error
+	if err != nil {
+		panic(fmt.Sprintf("Failed to auto migrate: %s", err.Error()))
+	}
+	fmt.Println("Database migrated successfully")
+
+	return db
 }
