@@ -11,12 +11,11 @@ phases:
       - docker build -t my-todo-app .
       - docker run --name extract my-todo-app
       - docker cp extract:/app/bootstrap ./bootstrap
-      - docker cp extract:/app/test.db ./test.db
       - docker rm extract
   post_build:
     commands:
       - echo "Zipping the application..."
-      - zip my-todo-app.zip bootstrap test.db
+      - zip my-todo-app.zip bootstrap
 artifacts:
   files:
     - my-todo-app.zip
